@@ -15,40 +15,53 @@
 )
 
 (defun remover-nao-letras (texto)
-  (remove-if-not #'alpha-char-p texto))
+  (remove-if-not #'alpha-char-p texto)
+)
 
 (defun manter-apenas-letras (texto)
   (
    let (
-        (letras (remover-nao-letras texto))
+        (lista-letras (remover-nao-letras texto))
       )
-    (coerce letras 'string)
+    (coerce lista-letras 'string)
   )
 )
 
-(defun reverter-texto (texto)
-  (
-   setq texto-reverso (reverse (manter-apenas-letras texto))
-  )
-)
+;; (defun reverter-texto (texto)
+;;   (
+;;    setq texto-reverso (reverse (manter-apenas-letras texto))
+;;   )
+;; )
 
 (defun verificar-se-eh-palindromo (texto)
-  (let ((texto-tratado (converter-para-minusculas texto)))
-    (if (equal texto-tratado (reverter-texto texto-tratado))
-        (format t "'~a' é palíndromo.~%" texto)
-        (format t "'~a' não é palíndromo.~%" texto)
+  (let ((texto-em-minusculo (converter-para-minusculas texto)))
+    ;; (format t "Texto tratado: ~a ~%" (manter-apenas-letras texto-em-minusculo))
+    (let ((texto-formatado (manter-apenas-letras texto-em-minusculo)))
+      (if (equal 
+           texto-formatado (reverse texto-formatado)
+        )
+          (format t "'~a' é palíndromo.~%" texto)
+          (format t "'~a' não é palíndromo.~%" texto)
+      )
     )
   )
 )
 
+;; (print
+;;  (manter-apenas-letras "ola, mund! 123")
+;; )
+
+(verificar-se-eh-palindromo "Socorram me subi no onibus em marrocos")
 (verificar-se-eh-palindromo "Ana")
 (verificar-se-eh-palindromo "Lisp")
-(verificar-se-eh-palindromo "Socorram me subi no onibus em marrocos")
+
 
 ;; (print
-;;   (reverse (remover-nao-letras "Socorram me subi no onibus em marrocos"))
+;;   (reverse (remover-nao-letras "Socorram Me subi no onibus em marrocos"))
 ;; )
 
 ;; (print
-;;    (remover-nao-letras "Socorram me subi no onibus em marrocos")
+;;    (remover-nao-letras "Socorram Me subi no onibus em marrocos")
 ;; )
+
+;; (print(converter-para-minusculas "Socorram me subi no onibus em marrocos"))
